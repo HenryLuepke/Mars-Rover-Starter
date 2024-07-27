@@ -5,9 +5,9 @@ class Rover {
       this.generatorWatts = 110;
    }
 
-   move(message, i) {
+   move(value) {
       if (this.mode === 'NORMAL') {
-         this.position = message.commands[i].value
+         this.position = value
          return {completed: true}
       } else {
          return {completed: false}
@@ -21,23 +21,23 @@ class Rover {
       }
    }
 
-   modeChange(message, i) {
-      this.mode = message.commands[i].value
+   modeChange(value) {
+      this.mode = value
       return {completed: true}
    }
 
-   recieveMessage(message) {
+   receiveMessage(message) {
       let output = {
          message: message.name,
          results: []
       }
       for (let i = 0; i < message.commands.length; i++) {
          if (message.commands[i].commandType === 'MOVE') {
-            output.results.push(this.move(message, i))
+            output.results.push(this.move(message.commands[i].value))
          } else if (message.commands[i].commandType === 'STATUS_CHECK') {
-            output.results.push(this.statusCheck(message))
+            output.results.push(this.statusCheck())
          } else if (message.commands[i].commandType === 'MODE_CHANGE') {
-            output.results.push(this.modeChange(message, i))
+            output.results.push(this.modeChange(message.commands[i].value))
          } else {
             throw Error("Invalid command");
          }
