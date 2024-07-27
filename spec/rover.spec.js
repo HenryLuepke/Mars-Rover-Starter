@@ -27,7 +27,8 @@ describe("Rover class", function() {
   it("responds correctly to the status check command", function() {
     let newMessage = new Message("status check", [new Command("STATUS_CHECK")])
     let rover = new Rover()
-    expect(rover.recieveMessage(newMessage).results[0].roverStatus).toBe({roverStatus: {mode: rover.mode, generatorWatts: rover.generatorWatts, position: rover.position}})
+    let status = rover.recieveMessage(newMessage).results[0].roverStatus
+    expect(status).toEqual({mode: rover.mode, generatorWatts: rover.generatorWatts, position: rover.position})
   })
 
   it("responds correctly to the mode change command", function() {

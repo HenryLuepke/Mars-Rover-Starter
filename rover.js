@@ -7,7 +7,7 @@ class Rover {
 
    move(message, i) {
       if (this.mode === 'NORMAL') {
-         //this.position = message.commands[i].value
+         this.position = message.commands[i].value
          return {completed: true}
       } else {
          return {completed: false}
